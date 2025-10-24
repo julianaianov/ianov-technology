@@ -1,0 +1,23 @@
+import { Header } from "@/components/header"
+import { LogoHero } from "@/components/logo-hero"
+import { Hero } from "@/components/hero"
+import { Services } from "@/components/services"
+import { Process } from "@/components/process"
+import { Technologies } from "@/components/technologies"
+import { CTA } from "@/components/cta"
+import { Footer } from "@/components/footer"
+
+export default function Home() {
+  return (
+    <main className="min-h-screen">
+      <Header />
+      <LogoHero />
+      <Hero />
+      <Services />
+      <Process />
+      <Technologies />
+      <CTA />
+      <Footer />
+    </main>
+  )
+}
