@@ -45,9 +45,9 @@ export function Footer() {
           <div>
             <h3 className="font-semibold mb-4">Contato</h3>
             <ul className="space-y-2 text-muted-foreground">
-              <li>contato@ianov.tech</li>
-              <li>+55 (11) 9999-9999</li>
-              <li>São Paulo, Brasil</li>
+              <li>ianov.technology@gmail.com</li>
+              <li>(21) 99500-7374</li>
+              <li>Rio de Janeiro, Brasil</li>
             </ul>
           </div>
         </div>
