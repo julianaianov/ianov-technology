@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { Card, CardContent } from "@/components/ui/card"
-import { Mail, Phone, MapPin } from "lucide-react"
+import { Mail, Phone, MapPin, Loader2, CheckCircle2, AlertCircle } from "lucide-react"
 
 export function CTA() {
   const [formData, setFormData] = useState({
@@ -16,11 +16,66 @@ export function CTA() {
     phone: "",
     message: "",
   })
+  const [isLoading, setIsLoading] = useState(false)
+  const [status, setStatus] = useState<"idle" | "success" | "error">("idle")
+  const [statusMessage, setStatusMessage] = useState("")
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    // Handle form submission
-    console.log("Form submitted:", formData)
+    setIsLoading(true)
+    setStatus("idle")
+    setStatusMessage("")
+
+    try {
+      // Enviar para e-mail via API
+      const emailResponse = await fetch("/api/contact", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      })
+
+      if (!emailResponse.ok) {
+        throw new Error("Erro ao enviar e-mail")
+      }
+
+      // Formatar mensagem para WhatsApp
+      const whatsappMessage = `Olá! Recebi sua mensagem do formulário de contato.
+
+*Nome:* ${formData.name}
+*Email:* ${formData.email}
+${formData.phone ? `*Telefone:* ${formData.phone}` : ""}
+
+*Mensagem:*
+${formData.message}
+
+Vou responder em breve!`
+
+      // Codificar mensagem para URL
+      const encodedMessage = encodeURIComponent(whatsappMessage)
+
+      // Redirecionar para WhatsApp
+      const whatsappUrl = `https://wa.me/5521995007374?text=${encodedMessage}`
+      window.open(whatsappUrl, "_blank")
+
+      // Limpar formulário
+      setFormData({
+        name: "",
+        email: "",
+        phone: "",
+        message: "",
+      })
+
+      setStatus("success")
+      setStatusMessage("Mensagem enviada com sucesso! Redirecionando para WhatsApp...")
+    } catch (error) {
+      console.error("Erro ao enviar formulário:", error)
+      setStatus("error")
+      setStatusMessage("Erro ao enviar mensagem. Tente novamente ou entre em contato diretamente pelo WhatsApp.")
+    } finally {
+      setIsLoading(false)
+    }
   }
 
   return (
@@ -150,8 +205,37 @@ export function CTA() {
                     />
                   </div>
 
-                  <Button type="submit" size="lg" className="w-full">
-                    Enviar Mensagem
+                  {statusMessage && (
+                    <div
+                      className={`p-4 rounded-lg flex items-start gap-3 ${
+                        status === "success"
+                          ? "bg-green-50 dark:bg-green-900/20 text-green-800 dark:text-green-200 border border-green-200 dark:border-green-800"
+                          : "bg-red-50 dark:bg-red-900/20 text-red-800 dark:text-red-200 border border-red-200 dark:border-red-800"
+                      }`}
+                    >
+                      {status === "success" ? (
+                        <CheckCircle2 className="h-5 w-5 flex-shrink-0 mt-0.5" />
+                      ) : (
+                        <AlertCircle className="h-5 w-5 flex-shrink-0 mt-0.5" />
+                      )}
+                      <p className="text-sm">{statusMessage}</p>
+                    </div>
+                  )}
+
+                  <Button
+                    type="submit"
+                    size="lg"
+                    className="w-full"
+                    disabled={isLoading}
+                  >
+                    {isLoading ? (
+                      <>
+                        <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                        Enviando...
+                      </>
+                    ) : (
+                      "Enviar Mensagem"
+                    )}
                   </Button>
                 </form>
               </CardContent>
