@@ -9,6 +9,7 @@ const technologies = [
   { name: "PostgreSQL", category: "Database" },
   { name: "AWS", category: "Cloud" },
   { name: "Docker", category: "DevOps" },
+  { name: "Inteligência Artificial", category: "AI/ML" },
 ]
 
 export function Technologies() {
