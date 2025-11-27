@@ -37,7 +37,8 @@ export function CTA() {
       })
 
       if (!emailResponse.ok) {
-        throw new Error("Erro ao enviar e-mail")
+        const errorData = await emailResponse.json().catch(() => ({}))
+        throw new Error(errorData.error || "Erro ao enviar e-mail")
       }
 
       // Formatar mensagem para WhatsApp
@@ -72,7 +73,12 @@ Vou responder em breve!`
     } catch (error) {
       console.error("Erro ao enviar formulário:", error)
       setStatus("error")
-      setStatusMessage("Erro ao enviar mensagem. Tente novamente ou entre em contato diretamente pelo WhatsApp.")
+      const errorMessage = error instanceof Error ? error.message : "Erro desconhecido"
+      setStatusMessage(
+        errorMessage.includes("API key") 
+          ? "Erro de configuração do servidor. Entre em contato diretamente pelo WhatsApp."
+          : errorMessage || "Erro ao enviar mensagem. Tente novamente ou entre em contato diretamente pelo WhatsApp."
+      )
     } finally {
       setIsLoading(false)
     }

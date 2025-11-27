@@ -17,8 +17,9 @@ export async function POST(request: NextRequest) {
 
     // Verificar se a API key está configurada
     if (!process.env.RESEND_API_KEY) {
+      console.error("RESEND_API_KEY não encontrada nas variáveis de ambiente")
       return NextResponse.json(
-        { error: "API key do Resend não configurada" },
+        { error: "API key do Resend não configurada. Verifique o arquivo .env.local e reinicie o servidor." },
         { status: 500 }
       )
     }
@@ -72,9 +73,18 @@ Este e-mail foi enviado automaticamente pelo formulário de contato do site.
     })
 
     if (error) {
-      console.error("Erro do Resend:", error)
+      console.error("Erro do Resend:", JSON.stringify(error, null, 2))
+      // Retornar mensagem de erro mais específica
+      let errorMessage = "Erro ao enviar e-mail"
+      if (error && typeof error === 'object') {
+        if ('message' in error) {
+          errorMessage = String(error.message)
+        } else if ('name' in error) {
+          errorMessage = `${error.name}: ${error.message || 'Erro desconhecido'}`
+        }
+      }
       return NextResponse.json(
-        { error: "Erro ao enviar e-mail. Tente novamente mais tarde." },
+        { error: errorMessage },
         { status: 500 }
       )
     }

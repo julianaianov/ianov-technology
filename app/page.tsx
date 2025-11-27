@@ -2,6 +2,7 @@ import { Header } from "@/components/header"
 import { LogoHero } from "@/components/logo-hero"
 import { Hero } from "@/components/hero"
 import { Services } from "@/components/services"
+import { Portfolio } from "../components/portfolio"
 import { Process } from "@/components/process"
 import { Technologies } from "@/components/technologies"
 import { CTA } from "@/components/cta"
@@ -15,6 +16,7 @@ export default function Home() {
       <LogoHero />
       <Hero />
       <Services />
+      <Portfolio />
       <Process />
       <Technologies />
       <CTA />
