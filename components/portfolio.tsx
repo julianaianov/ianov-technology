@@ -18,7 +18,7 @@ const portfolioItems: PortfolioItem[] = [
   { title: "PED 2025", url: "https://ped-2025.vercel.app" },
   { title: "Cynthia Romão App", url: "https://cynthia-romao-app.vercel.app" },
   { title: "Ianov Trade", url: "https://ianov-trade.vercel.app" },
-  { title: "Lawyer Assistant", url: "https://lawyer-assistent.vercel.app" },
+  { title: "Lawyer Assistant", url: "https://ianov-juridico.vercel.app" },
   { title: "Bitcoe", url: "https://bitcoe.vercel.app" },
   { title: "Codemar Contratos", url: "https://codemar-contratos.vercel.app" },
 ];
