@@ -25,12 +25,14 @@ export function Technologies() {
 
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 lg:gap-6 max-w-4xl mx-auto">
           {technologies.map((tech, index) => (
-            <Card key={index} className="border-border hover:border-primary/50 transition-colors">
-              <CardContent className="p-6 text-center">
-                <h3 className="text-lg font-semibold mb-1">{tech.name}</h3>
-                <p className="text-sm text-muted-foreground">{tech.category}</p>
-              </CardContent>
-            </Card>
+            <div key={index} className="neon-border-card">
+              <Card className="border-0 bg-card hover:bg-card/95 transition-colors shadow-none">
+                <CardContent className="p-6 text-center">
+                  <h3 className="text-lg font-semibold mb-1">{tech.name}</h3>
+                  <p className="text-sm text-muted-foreground">{tech.category}</p>
+                </CardContent>
+              </Card>
+            </div>
           ))}
         </div>
       </div>
