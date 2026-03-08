@@ -3,6 +3,13 @@
 import React from "react";
 // @ts-ignore
 import MicrolinkCard from "@microlink/react";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "@/components/ui/carousel";
 
 interface PortfolioItem {
   title: string;
@@ -23,6 +30,23 @@ const portfolioItems: PortfolioItem[] = [
   { title: "Codemar Contratos", url: "https://codemar-contratos.vercel.app" },
 ];
 
+function PortfolioCard({ item }: { item: PortfolioItem }) {
+  return (
+    <div className="rounded-2xl overflow-hidden bg-zinc-900 border border-zinc-800 hover:border-cyan-400 transition-all duration-300 h-full">
+      <MicrolinkCard
+        url={item.url}
+        size="large"
+        media="screenshot"
+        style={{
+          borderRadius: "1rem",
+          backgroundColor: "#09090b",
+          color: "white",
+        }}
+      />
+    </div>
+  );
+}
+
 export function Portfolio() {
   return (
     <section id="portfolio" className="w-full py-20 bg-black text-white">
@@ -31,24 +55,32 @@ export function Portfolio() {
           Nosso <span className="text-cyan-400">Portfólio</span>
         </h2>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10">
+        {/* Grid: visível em telas médias e grandes */}
+        <div className="hidden md:grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10">
           {portfolioItems.map((item, index) => (
-            <div
-              key={index}
-              className="rounded-2xl overflow-hidden bg-zinc-900 border border-zinc-800 hover:border-cyan-400 transition-all duration-300"
-            >
-              <MicrolinkCard
-                url={item.url}
-                size="large"
-                media="screenshot"
-                style={{
-                  borderRadius: "1rem",
-                  backgroundColor: "#09090b",
-                  color: "white",
-                }}
-              />
-            </div>
+            <PortfolioCard key={index} item={item} />
           ))}
+        </div>
+
+        {/* Carrossel: visível apenas em telas pequenas */}
+        <div className="md:hidden w-full px-2">
+          <Carousel
+            opts={{
+              align: "start",
+              loop: true,
+            }}
+            className="w-full"
+          >
+            <CarouselContent className="-ml-2">
+              {portfolioItems.map((item, index) => (
+                <CarouselItem key={index} className="pl-2 basis-full">
+                  <PortfolioCard item={item} />
+                </CarouselItem>
+              ))}
+            </CarouselContent>
+            <CarouselPrevious className="left-1 md:left-0 border-zinc-600 bg-zinc-900 text-white hover:bg-zinc-800 hover:text-cyan-400 disabled:opacity-30 z-10" />
+            <CarouselNext className="right-1 md:right-0 border-zinc-600 bg-zinc-900 text-white hover:bg-zinc-800 hover:text-cyan-400 disabled:opacity-30 z-10" />
+          </Carousel>
         </div>
       </div>
     </section>
