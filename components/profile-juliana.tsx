@@ -1,6 +1,6 @@
 import Image from "next/image"
-import { Card, CardContent } from "@/components/ui/card"
 import { GraduationCap, Briefcase, Award } from "lucide-react"
+import { Reveal } from "@/components/reveal"
 
 const formacao = [
   "Análise e Desenvolvimento de Sistemas - UCA (Cursando)",
@@ -12,51 +12,54 @@ const formacao = [
 
 export function ProfileJuliana() {
   return (
-    <Card className="border-border overflow-hidden bg-muted/20 hover:border-primary/30 transition-colors">
-      <CardContent className="p-0">
-        <div className="flex flex-col lg:flex-row">
-          {/* Foto */}
-          <div className="relative lg:w-80 lg:min-w-[320px] aspect-square lg:aspect-auto lg:min-h-[340px] bg-muted/50 flex items-center justify-center">
+    <Reveal>
+      <div className="glass group relative overflow-hidden rounded-3xl transition-colors duration-500 hover:border-cyan-400/40">
+        {/* Brilho de fundo do card */}
+        <div className="pointer-events-none absolute -left-32 -top-32 h-72 w-72 rounded-full bg-cyan-500/10 blur-[100px]" />
+
+        <div className="relative flex flex-col lg:flex-row">
+          {/* Foto com halo neon */}
+          <div className="relative flex aspect-square items-center justify-center lg:aspect-auto lg:min-h-[380px] lg:w-80 lg:min-w-[320px]">
+            <div className="logo-halo animate-neon-breathe absolute inset-8" />
             <Image
               src="/ju.png"
               alt="Juliana Ianov - Desenvolvedora Full Stack"
               width={320}
               height={400}
-              className="object-contain object-center w-full h-full p-4 lg:p-6"
+              className="relative h-full w-full object-contain object-center p-4 drop-shadow-[0_0_28px_rgba(34,211,238,.35)] transition-transform duration-700 group-hover:scale-105 lg:p-6"
               priority
             />
+            {/* Divisória neon entre foto e texto */}
+            <span className="absolute inset-y-8 right-0 hidden w-px bg-gradient-to-b from-transparent via-cyan-400/50 to-transparent lg:block" />
           </div>
 
           {/* Conteúdo */}
-          <div className="flex-1 p-6 lg:p-8 flex flex-col justify-center">
-            <div className="mb-6">
-              <h3 className="text-2xl lg:text-3xl font-bold text-foreground mb-1">
-                Juliana Ianov
-              </h3>
-              <p className="text-primary font-semibold text-lg mb-2">
-                Desenvolvedora Full Stack
+          <div className="flex flex-1 flex-col justify-center p-6 lg:p-10">
+            <div className="mb-7">
+              <h3 className="mb-1 text-2xl font-bold text-white lg:text-3xl">Juliana Ianov</h3>
+              <p className="mb-3 text-lg font-semibold">
+                <span className="gradient-text">Desenvolvedora Full Stack</span>
               </p>
-              <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-muted-foreground">
-                <span className="inline-flex items-center gap-1.5">
-                  <Briefcase className="h-4 w-4 text-primary/80" />
-                  5 anos de experiência
+              <div className="flex flex-wrap items-center gap-x-5 gap-y-2 text-slate-400">
+                <span className="inline-flex items-center gap-2 rounded-full border border-white/10 px-3 py-1 text-sm">
+                  <Briefcase className="h-4 w-4 text-cyan-400" />5 anos de experiência
                 </span>
-                <span className="inline-flex items-center gap-1.5">
-                  <Award className="h-4 w-4 text-primary/80" />
+                <span className="inline-flex items-center gap-2 rounded-full border border-white/10 px-3 py-1 text-sm">
+                  <Award className="h-4 w-4 text-cyan-400" />
                   Amplo portfólio
                 </span>
               </div>
             </div>
 
             <div>
-              <h4 className="text-sm font-semibold uppercase tracking-wide text-primary mb-3 flex items-center gap-2">
+              <h4 className="mb-4 flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.22em] text-cyan-400">
                 <GraduationCap className="h-4 w-4" />
                 Formação
               </h4>
-              <ul className="space-y-2 text-muted-foreground text-sm lg:text-base leading-relaxed">
-                {formacao.map((item, index) => (
-                  <li key={index} className="flex gap-2">
-                    <span className="text-primary/70 mt-1.5 shrink-0">•</span>
+              <ul className="space-y-2.5 text-sm leading-relaxed text-slate-400 lg:text-base">
+                {formacao.map((item) => (
+                  <li key={item} className="flex gap-3">
+                    <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-cyan-400 shadow-[0_0_8px_#22d3ee]" />
                     <span>{item}</span>
                   </li>
                 ))}
@@ -64,7 +67,7 @@ export function ProfileJuliana() {
             </div>
           </div>
         </div>
-      </CardContent>
-    </Card>
+      </div>
+    </Reveal>
   )
 }

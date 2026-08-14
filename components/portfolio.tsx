@@ -3,6 +3,7 @@
 import React from "react";
 // @ts-ignore
 import MicrolinkCard from "@microlink/react";
+import { ArrowUpRight } from "lucide-react";
 import {
   Carousel,
   CarouselContent,
@@ -10,76 +11,108 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel";
+import { Reveal } from "@/components/reveal";
+import { SectionHeading } from "@/components/section-heading";
 
 interface PortfolioItem {
   title: string;
   url: string;
+  tag: string;
 }
 
 const portfolioItems: PortfolioItem[] = [
-  { title: "Estacionamento Rotativo", url: "https://estacionamento-rotativo.vercel.app" },
-  { title: "Maricá Recicla", url: "https://marica-recicla.vercel.app" },
-  { title: "Unity Offshore", url: "https://www.unityoffshore.co/" },
-  { title: "Gabinete Isaac", url: "https://gabinete-isaac.vercel.app" },
-  { title: "MediCannabis Brasil", url: "https://medicannabisbrasil.vercel.app" },
-  { title: "PED 2025", url: "https://ped-2025.vercel.app" },
-  { title: "Cynthia Romão App", url: "https://cynthia-romao-app.vercel.app" },
-  { title: "Ianov Trade", url: "https://ianov-trade.vercel.app" },
-  { title: "Lawyer Assistant", url: "https://ianov-juridico.vercel.app" },
-  { title: "Bitcoe", url: "https://bitcoe.vercel.app" },
-  { title: "Codemar Contratos", url: "https://codemar-contratos.vercel.app" },
+  { title: "Estacionamento Rotativo", url: "https://estacionamento-rotativo.vercel.app", tag: "Sistema" },
+  { title: "Maricá Recicla", url: "https://marica-recicla.vercel.app", tag: "Plataforma" },
+  { title: "Unity Offshore", url: "https://www.unityoffshore.co/", tag: "Institucional" },
+  { title: "Gabinete Isaac", url: "https://gabinete-isaac.vercel.app", tag: "Portal" },
+  { title: "MediCannabis Brasil", url: "https://medicannabisbrasil.vercel.app", tag: "Plataforma" },
+  { title: "PED 2025", url: "https://ped-2025.vercel.app", tag: "Evento" },
+  { title: "Cynthia Romão App", url: "https://cynthia-romao-app.vercel.app", tag: "App" },
+  { title: "Ianov Trade", url: "https://ianov-trade.vercel.app", tag: "Dashboard" },
+  { title: "Lawyer Assistant", url: "https://ianov-juridico.vercel.app", tag: "IA" },
+  { title: "Bitcoe", url: "https://bitcoe.vercel.app", tag: "Fintech" },
+  { title: "Codemar Contratos", url: "https://codemar-contratos.vercel.app", tag: "Gestão" },
 ];
 
 function PortfolioCard({ item }: { item: PortfolioItem }) {
+  // O card do Microlink já é um <a> para o projeto — por isso o wrapper aqui
+  // é uma div: âncora dentro de âncora é HTML inválido e quebra a hidratação.
   return (
-    <div className="rounded-2xl overflow-hidden bg-zinc-900 border border-zinc-800 hover:border-cyan-400 transition-all duration-300 h-full">
-      <MicrolinkCard
-        url={item.url}
-        size="large"
-        media="screenshot"
-        style={{
-          borderRadius: "1rem",
-          backgroundColor: "#09090b",
-          color: "white",
-        }}
-      />
+    <div className="group relative h-full overflow-hidden rounded-2xl border border-white/10 bg-zinc-950 transition-all duration-500 hover:-translate-y-2 hover:border-cyan-400/60 hover:shadow-[0_20px_60px_-20px_rgba(34,211,238,.7)]">
+      {/* Screenshot ao vivo do projeto */}
+      <div className="overflow-hidden transition-transform duration-700 group-hover:scale-[1.04]">
+        <MicrolinkCard
+          url={item.url}
+          size="large"
+          media="screenshot"
+          style={{
+            border: "none",
+            borderRadius: "1rem",
+            backgroundColor: "#09090b",
+            color: "white",
+          }}
+        />
+      </div>
+
+      {/* Faixa de informação que sobe no hover */}
+      <div className="pointer-events-none absolute inset-x-0 bottom-0 translate-y-full bg-gradient-to-t from-black via-black/95 to-transparent p-5 transition-transform duration-500 group-hover:translate-y-0">
+        <div className="flex items-center justify-between gap-3">
+          <div>
+            <p className="text-xs uppercase tracking-[0.2em] text-cyan-400">{item.tag}</p>
+            <p className="mt-1 font-semibold text-white">{item.title}</p>
+          </div>
+          <span className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full border border-cyan-400/40 text-cyan-300">
+            <ArrowUpRight className="h-5 w-5" />
+          </span>
+        </div>
+      </div>
+
+      {/* Brilho de borda no hover */}
+      <span className="pointer-events-none absolute inset-0 rounded-2xl opacity-0 shadow-[inset_0_0_40px_-10px_rgba(34,211,238,.8)] transition-opacity duration-500 group-hover:opacity-100" />
     </div>
   );
 }
 
 export function Portfolio() {
   return (
-    <section id="portfolio" className="w-full py-20 bg-black text-white">
-      <div className="max-w-7xl mx-auto px-6">
-        <h2 className="text-4xl font-bold text-center mb-12">
-          Nosso <span className="text-cyan-400">Portfólio</span>
-        </h2>
+    <section id="portfolio" className="relative w-full overflow-hidden py-24 text-white lg:py-32">
+      <div className="absolute inset-0 -z-10">
+        <div className="absolute right-[-10%] top-1/4 h-[420px] w-[420px] rounded-full bg-violet-600/10 blur-[130px]" />
+        <div className="absolute left-[-10%] bottom-1/4 h-[420px] w-[420px] rounded-full bg-cyan-500/10 blur-[130px]" />
+      </div>
 
-        {/* Grid: visível em telas médias e grandes */}
-        <div className="hidden md:grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10">
+      <div className="mx-auto max-w-7xl px-6">
+        <SectionHeading
+          eyebrow="Portfólio"
+          title={
+            <>
+              Projetos que já estão <span className="gradient-text">no ar</span>
+            </>
+          }
+          subtitle="Cada card é uma captura ao vivo do projeto. Clique para visitar."
+        />
+
+        {/* Grid: telas médias e grandes */}
+        <div className="hidden grid-cols-1 gap-8 sm:grid-cols-2 md:grid lg:grid-cols-3 lg:gap-10">
           {portfolioItems.map((item, index) => (
-            <PortfolioCard key={index} item={item} />
+            <Reveal key={item.url} delay={(index % 3) * 110} direction="zoom">
+              <PortfolioCard item={item} />
+            </Reveal>
           ))}
         </div>
 
-        {/* Carrossel: visível apenas em telas pequenas */}
-        <div className="md:hidden w-full px-2">
-          <Carousel
-            opts={{
-              align: "start",
-              loop: true,
-            }}
-            className="w-full"
-          >
+        {/* Carrossel: telas pequenas */}
+        <div className="w-full px-2 md:hidden">
+          <Carousel opts={{ align: "start", loop: true }} className="w-full">
             <CarouselContent className="-ml-2">
-              {portfolioItems.map((item, index) => (
-                <CarouselItem key={index} className="pl-2 basis-full">
+              {portfolioItems.map((item) => (
+                <CarouselItem key={item.url} className="basis-full pl-2">
                   <PortfolioCard item={item} />
                 </CarouselItem>
               ))}
             </CarouselContent>
-            <CarouselPrevious className="left-1 md:left-0 border-zinc-600 bg-zinc-900 text-white hover:bg-zinc-800 hover:text-cyan-400 disabled:opacity-30 z-10" />
-            <CarouselNext className="right-1 md:right-0 border-zinc-600 bg-zinc-900 text-white hover:bg-zinc-800 hover:text-cyan-400 disabled:opacity-30 z-10" />
+            <CarouselPrevious className="left-1 z-10 border-cyan-400/30 bg-black/80 text-white hover:bg-cyan-400/10 hover:text-cyan-300 disabled:opacity-30" />
+            <CarouselNext className="right-1 z-10 border-cyan-400/30 bg-black/80 text-white hover:bg-cyan-400/10 hover:text-cyan-300 disabled:opacity-30" />
           </Carousel>
         </div>
       </div>

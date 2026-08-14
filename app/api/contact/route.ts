@@ -1,8 +1,6 @@
 import { NextRequest, NextResponse } from "next/server"
 import { Resend } from "resend"
 
-const resend = new Resend(process.env.RESEND_API_KEY)
-
 export async function POST(request: NextRequest) {
   try {
     const { name, email, phone, message } = await request.json()
@@ -23,6 +21,10 @@ export async function POST(request: NextRequest) {
         { status: 500 }
       )
     }
+
+    // Cliente criado só aqui: instanciar no topo do módulo quebra o build
+    // quando a variável de ambiente não está presente.
+    const resend = new Resend(process.env.RESEND_API_KEY)
 
     // Formatar mensagem
     const emailContent = `
@@ -76,11 +78,12 @@ Este e-mail foi enviado automaticamente pelo formulário de contato do site.
       console.error("Erro do Resend:", JSON.stringify(error, null, 2))
       // Retornar mensagem de erro mais específica
       let errorMessage = "Erro ao enviar e-mail"
-      if (error && typeof error === 'object') {
-        if ('message' in error) {
-          errorMessage = String(error.message)
-        } else if ('name' in error) {
-          errorMessage = `${error.name}: ${error.message || 'Erro desconhecido'}`
+      if (error && typeof error === "object") {
+        const { name, message } = error as { name?: string; message?: string }
+        if (message) {
+          errorMessage = message
+        } else if (name) {
+          errorMessage = `${name}: Erro desconhecido`
         }
       }
       return NextResponse.json(
