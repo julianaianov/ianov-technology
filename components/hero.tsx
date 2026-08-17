@@ -2,11 +2,12 @@
 
 import { Button } from "@/components/ui/button"
 import { ArrowRight, Play, Sparkles } from "lucide-react"
+import { AutoVideo } from "@/components/auto-video"
 import { NeonLogo } from "@/components/neon-logo"
 import { NeonParticles } from "@/components/neon-particles"
 import { RotatingWords } from "@/components/rotating-words"
 import { Reveal } from "@/components/reveal"
-import { videos } from "@/lib/media"
+import { posters, videos } from "@/lib/media"
 
 const highlights = ["experiências digitais", "aplicativos mobile", "sistemas sob medida", "automações com IA"]
 
@@ -19,17 +20,11 @@ export function Hero() {
       {/* ---------- Camadas de fundo ---------- */}
       <div className="absolute inset-0 -z-10">
         {/* Vídeo cinematográfico */}
-        <video
-          autoPlay
-          muted
-          loop
-          playsInline
-          preload="metadata"
-          aria-hidden
+        <AutoVideo
+          src={videos.hero}
+          poster={posters.hero}
           className="absolute inset-0 h-full w-full scale-105 object-cover opacity-[0.28]"
-        >
-          <source src={videos.hero} type="video/mp4" />
-        </video>
+        />
 
         {/* Escurecimento para o texto respirar */}
         <div className="absolute inset-0 bg-gradient-to-b from-black/85 via-black/70 to-black" />

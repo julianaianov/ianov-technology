@@ -1,10 +1,11 @@
 "use client"
 
 import { Mail, Phone, MapPin } from "lucide-react"
+import { AutoVideo } from "@/components/auto-video"
 import { ProfileJuliana } from "@/components/profile-juliana"
 import { Reveal } from "@/components/reveal"
 import { TiltCard } from "@/components/tilt-card"
-import { videos } from "@/lib/media"
+import { posters, videos } from "@/lib/media"
 
 const whatsappUrl =
   "https://wa.me/5521995007374?text=Olá!%20Gostaria%20de%20solicitar%20uma%20cotação%20para%20um%20sistema/app/site."
@@ -122,17 +123,11 @@ export function CTA() {
             {/* Vídeo temático */}
             <Reveal direction="right">
               <div className="neon-frame group relative aspect-[4/3] overflow-hidden rounded-2xl lg:aspect-auto lg:min-h-[560px]">
-                <video
-                  autoPlay
-                  muted
-                  loop
-                  playsInline
-                  preload="none"
-                  aria-hidden
+                <AutoVideo
+                  src={videos.contact}
+                  poster={posters.contact}
                   className="absolute inset-0 h-full w-full scale-105 object-cover transition-transform duration-[1.2s] group-hover:scale-110"
-                >
-                  <source src={videos.contact} type="video/mp4" />
-                </video>
+                />
                 <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent" />
                 <div className="absolute bottom-7 left-7 right-7">
                   <p className="text-xs uppercase tracking-[0.28em] text-cyan-400">Próximo passo</p>

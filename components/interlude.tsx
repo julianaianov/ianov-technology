@@ -1,8 +1,9 @@
 "use client"
 
 import { useEffect, useRef } from "react"
+import { AutoVideo } from "@/components/auto-video"
 import { Reveal } from "@/components/reveal"
-import { videos } from "@/lib/media"
+import { posters, videos } from "@/lib/media"
 
 /**
  * Faixa larga de vídeo entre seções, com paralaxe leve — serve de respiro
@@ -43,18 +44,12 @@ export function Interlude() {
 
   return (
     <section className="relative h-[65vh] min-h-[420px] w-full overflow-hidden">
-      <video
+      <AutoVideo
         ref={videoRef}
-        autoPlay
-        muted
-        loop
-        playsInline
-        preload="none"
-        aria-hidden
+        src={videos.interlude}
+        poster={posters.interlude}
         className="absolute inset-0 h-full w-full scale-125 object-cover opacity-40 will-change-transform"
-      >
-        <source src={videos.interlude} type="video/mp4" />
-      </video>
+      />
 
       {/* Escurecimento nas pontas para colar nas seções vizinhas */}
       <div className="absolute inset-0 bg-gradient-to-b from-black via-black/45 to-black" />

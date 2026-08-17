@@ -20,3 +20,16 @@ export const videos = {
   /** Bloco de contato — skyline urbano em neon à noite */
   contact: "https://assets.mixkit.co/videos/28653/28653-720.mp4",
 } as const
+
+/**
+ * Primeiro quadro de cada vídeo, servido enquanto ele carrega e usado como
+ * imagem fixa caso o aparelho bloqueie o autoplay (modo de baixo consumo do
+ * iOS, por exemplo) — evita o retângulo preto. Ao trocar um vídeo, gere o
+ * poster correspondente a partir do novo arquivo.
+ */
+export const posters = {
+  hero: "/posters/hero.jpg",
+  showcase: "/posters/showcase.jpg",
+  interlude: "/posters/interlude.jpg",
+  contact: "/posters/contact.jpg",
+} as const

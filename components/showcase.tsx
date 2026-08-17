@@ -1,6 +1,7 @@
+import { AutoVideo } from "@/components/auto-video"
 import { Counter } from "@/components/counter"
 import { Reveal } from "@/components/reveal"
-import { videos } from "@/lib/media"
+import { posters, videos } from "@/lib/media"
 import { Cpu, Gauge, Rocket, Layers } from "lucide-react"
 
 /**
@@ -60,17 +61,11 @@ export function Showcase() {
         <div className="grid grid-cols-1 items-center gap-12 lg:grid-cols-2 lg:gap-20">
           <Reveal direction="left">
             <div className="neon-frame group relative aspect-[4/3] overflow-hidden rounded-2xl">
-              <video
-                autoPlay
-                muted
-                loop
-                playsInline
-                preload="none"
-                aria-hidden
+              <AutoVideo
+                src={videos.showcase}
+                poster={posters.showcase}
                 className="absolute inset-0 h-full w-full scale-105 object-cover transition-transform duration-[1.2s] group-hover:scale-110"
-              >
-                <source src={videos.showcase} type="video/mp4" />
-              </video>
+              />
 
               {/* Véu escuro + linhas de scanner */}
               <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent" />
