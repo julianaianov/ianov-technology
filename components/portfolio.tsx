@@ -35,6 +35,7 @@ const portfolioItems: PortfolioItem[] = [
     screenshot: "/portfolio/estacionamento-rotativo.png",
     description: "Sistema de gerenciamento de estacionamento rotativo",
   },
+  { title: "O Recompensa", url: "https://recompensa.app.br", tag: "Plataforma" },
   { title: "Unity Offshore", url: "https://www.unityoffshore.co/", tag: "Institucional" },
   { title: "Gabinete Isaac", url: "https://gabinete-isaac.vercel.app", tag: "Portal" },
   { title: "MediCannabis Brasil", url: "https://medicannabisbrasil.vercel.app", tag: "Plataforma" },
