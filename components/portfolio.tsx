@@ -45,6 +45,8 @@ const portfolioItems: PortfolioItem[] = [
   { title: "Lawyer Assistant", url: "https://ianov-juridico.vercel.app", tag: "IA" },
   { title: "Bitcoe", url: "https://bitcoe.vercel.app", tag: "Fintech" },
   { title: "Codemar Contratos", url: "https://codemar-contratos.vercel.app", tag: "Gestão" },
+  { title: "Gouvêa Prime Imóveis", url: "https://www.gouveaprimeimoveis.com.br", tag: "Imobiliária" },
+  { title: "Cynthia Romão Psicologia", url: "https://www.cynthiaromaopsi.com.br", tag: "Institucional" },
 ];
 
 /** Moldura comum a todos os cards, com o levantar e o brilho no hover. */
